@@ -1,0 +1,108 @@
+.navigation-clean-button {
+  background:#fff;
+  padding-top:10px;
+  padding-bottom:10px;
+  color:#333;
+  border-radius:0;
+  box-shadow:none;
+  border:none;
+  margin-bottom:0;
+}
+
+@media (max-width:767px) {
+  .navigation-clean-button {
+    padding-top:0;
+    padding-bottom:0;
+  }
+}
+
+@media (max-width:767px) {
+  .navigation-clean-button .navbar-header {
+    padding-top:10px;
+    padding-bottom:10px;
+  }
+}
+
+@media (max-width:767px) {
+  .navigation-clean-button .navbar-right {
+    margin-bottom:20px;
+  }
+}
+
+.navigation-clean-button .navbar-brand {
+  font-weight:bold;
+  color:inherit;
+}
+
+.navigation-clean-button .navbar-brand:hover {
+  color:#222;
+}
+
+.navigation-clean-button .navbar-brand img {
+  height:100%;
+  display:inline-block;
+  margin-right:10px;
+  width:auto;
+}
+
+.navigation-clean-button .navbar-toggle {
+  border-color:#ddd;
+}
+
+.navigation-clean-button .navbar-toggle:hover, .navigation-clean-button .navbar-toggle:focus {
+  background:none;
+}
+
+.navigation-clean-button .navbar-toggle .icon-bar {
+  background-color:#888;
+}
+
+.navigation-clean-button .navbar-collapse, .navigation-clean-button .navbar-form {
+  border-top-color:#ddd;
+}
+
+.navigation-clean-button.navbar .navbar-nav > li > a {
+  padding-left:18px;
+  padding-right:18px;
+}
+
+.navigation-clean-button.navbar-default .navbar-nav > li > a {
+  color:#465765;
+}
+
+.navigation-clean-button.navbar-default .navbar-nav > li > a:focus, .navigation-clean-button.navbar-default .navbar-nav > li > a:hover {
+  color:#37434d !important;
+  background-color:transparent;
+}
+
+.navigation-clean-button .actions {
+  margin-top:7px;
+  margin-bottom:0;
+}
+
+.navigation-clean-button .actions .login {
+  margin-right:7px;
+  text-decoration:none;
+  color:#465765;
+}
+
+.navigation-clean-button .action-button, .navigation-clean-button .action-button:active {
+  background:#56c6c6;
+  border-radius:20px;
+  color:#fff;
+  box-shadow:none;
+  border:none;
+  text-shadow:none;
+  padding:10px 22px;
+  transition:background-color 0.25s;
+}
+
+.navigation-clean-button .action-button:hover {
+  /*background:#2bde73;*/
+}
+
+.navbar {
+  margin-bottom:0;
+  border:none;
+}
+
