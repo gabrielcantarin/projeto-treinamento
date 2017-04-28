@@ -8,6 +8,8 @@ $route['translate_uri_dashes'] = FALSE;
 
 
 
+$route['media/(:any)'] = 'Media/resize/$1';
+
 
 $route['login'] = 'Usuario/login';
 $route['register'] = 'Usuario/register';

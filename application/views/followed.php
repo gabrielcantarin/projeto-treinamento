@@ -20,9 +20,9 @@
                 <? if(isset($followingMe)) {foreach($followingMe as $im){  ?>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="rp bqq agk">
-                        <div class="rv" style="background-image:url(<?= base_url('assets/img/'.$im->last_bg) ?>);"></div>
+                        <div class="rv" style="background-image:url(<?= base_url('media/'.$im->last_bg) ?>);"></div>
                         <div class="rq awx">
-                            <a href="<?= base_url($im->username) ?>"><img class="bqr" src="<?= base_url('assets/img/'.$im->last_picture) ?>" /></a>
+                            <a href="<?= base_url($im->username) ?>"><img class="bqr" src="<?= base_url('media/'.$im->last_picture) ?>" /></a>
                             <h6 class="rr">
                                 <a class="bph" href="<?= base_url($im->username) ?>"><?= $im->name ?></a>
                             </h6>

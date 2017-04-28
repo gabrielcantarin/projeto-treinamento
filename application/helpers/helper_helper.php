@@ -23,18 +23,22 @@
 		}
 	}
 
-	function alerts($success = NULL)
+	function alerts($message = NULL)
 	{
 		if(validation_errors()){ 
-                $string1 = '<div role="alert" class="alert alert-danger beautiful"><div>'.validation_errors().'</div>
+                $string1 = '<div role="alert" class="alert alert-danger beautiful" style="width:100%"><div>'.validation_errors().'</div>
                 </div>';
                 print_r($string1);
         }
-        if(isset($success)){ 
-        	$string2 = '<div role="alert" class="alert alert-success beautiful"><div>'.$success.'</div>
+        if(isset($message['success']) && $message['success'] != ""){ 
+        	$string2 = '<div role="alert" class="alert alert-success beautiful" style="width:100%"><div>'.$message['success'].'</div>
                 </div>';
             print_r($string2);
-
+        } 
+        if(isset($message['error']) && $message['error'] != ""){ 
+        	$string2 = '<div role="alert" class="alert alert-danger beautiful" style="width:100%"><div>'.$message['error'].'</div>
+                </div>';
+            print_r($string2);
         } 
 	}
 
@@ -148,7 +152,7 @@
 		$s .= '<div class="rv" style="background-image:url(' . base_url('assets/img/').$user->last_bg.')"></div>';
         $s .= '<div class="rq awx">';
         $s .= '<a href="'.base_url($user->username).'">';
-        $s .= '<img class="bqr" src="'.base_url('assets/img/'.$user->last_picture) .'" />';
+        $s .= '<img class="bqr" src="'.base_url('media/'. $user->last_picture).'" />';
         $s .= '</a>';
         $s .= '<h6 class="rr"><a class="bph" href="'.base_url($user->username).'">'.$user->name.'</a></h6>';
         $s .= '<p class="agk">@'.$user->username.'</p>';
@@ -189,7 +193,7 @@
             foreach($should_follow as $follow) { 
 				$s .= 	'<li class="tu afw">';
 				$s .= 	'<a href="'. base_url($follow->username).'">';
-				$s .= 	'<img class="bqa wp yy agc" src="'.base_url('assets/img/'. $follow->last_picture).'" />';
+				$s .= 	'<img class="bqa wp yy agc" src="'.base_url('media/'. $follow->last_picture).'" />';
 				$s .= 	'</a>';
 				$s .= 	'<div class="tv">';
 				$s .= '<a class="bph" href="'.base_url($follow->username).'">';
@@ -290,7 +294,7 @@
 		$s = "";
 		$s .= '<li class="tu b ahx">';
 		$s .= '<a href="'.base_url($post->username).'">';
-		$s .= '<img class="bqa wp yy agc" src="'. base_url('assets/img/'.$post->last_picture).'" />';
+		$s .= '<img class="bqa wp yy agc" src="'.base_url('media/'. $post->last_picture).'" />';
 		$s .= '</a>';
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqj">';

@@ -92,7 +92,7 @@ var Demo = (function() {
 
 
 	function init() {
-		demoUpload();
+		// demoUpload();
 	}
 
 	return {
