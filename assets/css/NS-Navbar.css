@@ -7,6 +7,7 @@
   box-shadow:none;
   border:none;
   margin-bottom:0;
+  background-color: #2489c5;
 }
 
 @media (max-width:767px) {
@@ -83,11 +84,10 @@
 .navigation-clean-button .actions .login {
   margin-right:7px;
   text-decoration:none;
-  color:#465765;
 }
 
 .navigation-clean-button .action-button, .navigation-clean-button .action-button:active {
-  background:#56c6c6;
+  background:#44a1d5;
   border-radius:20px;
   color:#fff;
   box-shadow:none;
@@ -98,7 +98,7 @@
 }
 
 .navigation-clean-button .action-button:hover {
-  /*background:#2bde73;*/
+  background:#3097D1;
 }
 
 .navbar {

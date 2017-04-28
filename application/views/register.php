@@ -23,6 +23,9 @@
                 </div>
             </div>
             <div class="form-group">
+                <p>Nós do ItsWaving não nos responsabilizamos por nenhuma informação ou conteúdo postado nem por nenhuma consequencia causada direta ou indiretamente pela rede social.</p>
+            </div>
+            <div class="form-group">
                 <button class="btn btn-primary btn-block" type="submit">Cadastrar</button>
             </div>
             <a href="<?= base_url('login'); ?>" class="already">Possui uma conta? Clique aqui para entrar.</a>

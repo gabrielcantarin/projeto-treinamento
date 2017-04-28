@@ -164,6 +164,11 @@ p.navbar-text.navbar-right.actions {
   font-family:'Roboto Slab';
   text-transform:uppercase;
   font-weight:400;
+  color:#fff;
+}
+
+p.navbar-text.navbar-right.actions a {
+  color:#fff;
 }
 
 a.navbar-link.login:hover {

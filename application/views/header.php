@@ -34,7 +34,10 @@
     <div>
         <nav class="navbar navbar-default navigation-clean-button">
             <div class="container">
-                <div class="navbar-header"><a class="navbar-brand navbar-link" href="<?= base_url() ?>" style="font-weight:bold!important;"> Waving Social Network</a>
+                <div class="navbar-header">
+                    <a class="navbar-brand navbar-link" href="<?= base_url() ?>" style="padding:5px;"> 
+                        <img src="<?= base_url('assets/img/logo-waving.png') ?>"/>
+                    </a>
                     <button class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navcol-1"><span class="sr-only">Toggle navigation</span><span class="icon-bar"></span><span class="icon-bar"></span><span class="icon-bar"></span></button>
                 </div>
                 <div class="collapse navbar-collapse" id="navcol-1">
