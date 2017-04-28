@@ -31,6 +31,9 @@ $route['cover-photo'] = 'Config/coverPhoto';
 $route['deactivate-account'] = 'Config/deactivateAccount';
 $route['localization'] = 'Config/localization';
 
+$route['like/(:any)'] = 'Like/likePost/$1';
+$route['unlike/(:any)'] = 'Like/unlikePost/$1';
+
 $route['(:any)/follow'] = 'Follow/listFollow/$1';
 $route['(:any)/followed'] = 'Follow/listFollowed/$1';
 

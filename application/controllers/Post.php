@@ -11,6 +11,7 @@ class Post extends CI_Controller {
         $this->load->model('Usuario_model');
         $this->load->model('Post_model');
         $this->load->model('Follow_model');
+        $this->load->model('Like_model');
     }
 
 	public function create()
@@ -30,7 +31,9 @@ class Post extends CI_Controller {
 
     public function index($view = 'near')
     {
-        $listFollow = arr2col($this->Follow_model->imFollowing($this->session->userdata('id')), "username");
+        $user_id = $this->session->userdata('id');
+        
+        $listFollow = arr2col($this->Follow_model->imFollowing($user_id), "username");
         $listFollow[] = $this->session->userdata('username');
         $listClosest = arr2col($this->Usuario_model->getClosestPeople(20), "username");
 
@@ -50,6 +53,7 @@ class Post extends CI_Controller {
             $data['posts'] = unique_multidim_array($data['posts'], "id_post");
         }
 
+        $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $user_id);
         $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
 
         $this->load->view('header');

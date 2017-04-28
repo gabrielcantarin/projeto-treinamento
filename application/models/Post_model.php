@@ -66,4 +66,11 @@ class Post_model extends CI_Model {
                 return $query->result();
             }
         }
+
+        public function updateLike($post_id, $action)
+        {
+            $this->db->set('likes', 'likes' . $action, FALSE);
+            $this->db->where('id', $post_id);
+            $this->db->update('Post');
+        }
 }

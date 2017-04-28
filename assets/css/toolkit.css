@@ -8660,6 +8660,11 @@ img.zoom-img {
 .bqt:last-child {
   border-right: 0; }
 
+
+
+
+
+
 .bqu a {
   margin-left: 5px; }
 
@@ -8668,3 +8673,12 @@ html {
 .cem {
   width: 100%;
 }
+
+.like:hover{
+  color: #E91E63;}
+.liked {
+  color: #E91E63;}
+.wave:hover{
+  color: #03a9f4;}
+.waved{
+  color: #03a9f4;}

@@ -291,6 +291,7 @@
 
 	function constroy_post($post)
 	{
+		$post->liked = $post->liked == 1? "liked" : "";
 		$s = "";
 		$s .= '<li class="tu b ahx">';
 		$s .= '<a href="'.base_url($post->username).'">';
@@ -307,6 +308,20 @@
 		$s .= '<p>';
 		$s .= htmlspecialchars($post->message);
 		$s .= '</p>';
+
+		$s .= '<ul class="bqs">';
+		$s .= '<li class="bqt">';
+		$s .= '<a href="'.base_url('like/'.$post->id_post).'" class="bph" data-toggle="modal">';
+		$s .= '<i class="icon ion-heart like '. $post->liked .'"></i> '. $post->likes;
+		$s .= '</a>';
+		$s .= '</li>';
+		// $s .= '<li class="bqt">';
+		// $s .= '<a href="#" class="bph">';
+		// $s .= '<i class="icon ion-radio-waves wave"></i> 0';
+		// $s .= '</a>';
+		// $s .= '</li>';
+        $s .= '</ul>';
+
 		$s .= '</div>';
         $s .= '</li>';
 
