@@ -23,12 +23,17 @@
                         <? alerts($this->session->flashdata('success'));  ?>
                         <div class="input-group">
                             <textarea class="form-control" rows="3" id="comment" name="message" placeholder="Em que você está pensando?"></textarea>
-                            <input type="hidden" name="lat" id="lat">
-                            <input type="hidden" name="log" id="log">
+                            <input type="hidden" name="lat" id="lat" value="<?= $this->session->userdata('last_lat') ?>">
+                            <input type="hidden" name="log" id="log" value="<?= $this->session->userdata('last_log') ?>">
                             <div class="om">
                                 <button type="submit" class="cg pl">Publicar</button>
                             </div>
                         </div>
+                        <a href="<?= base_url('localization') ?>">
+                            <small style="margin-top: 10px" class="aec axr">
+                                Você está: <?= $this->session->userdata('last_city') ?>
+                            </small>
+                        </a>
                     </form>
                 </li>
                 

@@ -9,6 +9,20 @@
         }
 	}
 
+	function loged()
+	{
+		if(!isset($_SESSION['id'])){
+			redirect(base_url('login'));
+		}
+	}
+
+	function hasLocation()
+	{
+		if(!$_SESSION['last_lat'] || !$_SESSION['last_log']){
+			redirect(base_url('localization'));
+		}
+	}
+
 	function alerts($success = NULL)
 	{
 		if(validation_errors()){ 
@@ -205,12 +219,14 @@
 		$menu2 = $menu == "photo" ? "pj":"pl";
 		$menu3 = $menu == "cover" ? "pj":"pl";
 		$menu4 = $menu == "deactivate" ? "pj":"pl";
+		$menu5 = $menu == "localization" ? "pj":"pl";
 
 		$s = "";
 		$s .= '<div class="rp brb agk">';
 		$s .= '<div class="rq">';
 		$s .= '<h6 class="agd">Configurações</h6>';
 		$s .= '<ul class="bqe bqf">';
+
 		$s .= '<li class="tu afw">';
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqi">';
@@ -220,6 +236,17 @@
 		$s .= '</div>';
 		$s .= '</div>';
 		$s .= '</li>';
+
+		$s .= '<li class="tu afw">';
+		$s .= '<div class="tv">';
+		$s .= '<div class="bqi">';
+		$s .= '<a href="'.base_url('localization').'">';
+	    $s .= '<button class="cg '. $menu5 .' cem" type="button">Localização</button>';
+		$s .= '</a>';
+		$s .= '</div>';
+		$s .= '</div>';
+		$s .= '</li>';
+
 		$s .= '<li class="tu afw">';
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqi">';
@@ -229,6 +256,7 @@
 		$s .= '</div>';
 		$s .= '</div>';
 		$s .= '</li>';
+
 		$s .= '<li class="tu afw">';
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqi">';
@@ -238,6 +266,7 @@
 		$s .= '</div>';
 		$s .= '</div>';
 		$s .= '</li>';
+
 		$s .= '<li class="tu afw">';
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqi">';
@@ -247,6 +276,7 @@
 		$s .= '</div>';
 		$s .= '</div>';
 		$s .= '</li>';
+
 		$s .= '</ul>';
 		$s .= '</div>';
         $s .= '</div>';

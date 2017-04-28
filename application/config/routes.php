@@ -27,6 +27,7 @@ $route['config'] = 'Config/index';
 $route['profile-photo'] = 'Config/profilePhoto';
 $route['cover-photo'] = 'Config/coverPhoto';
 $route['deactivate-account'] = 'Config/deactivateAccount';
+$route['localization'] = 'Config/localization';
 
 $route['(:any)/follow'] = 'Follow/listFollow/$1';
 $route['(:any)/followed'] = 'Follow/listFollowed/$1';

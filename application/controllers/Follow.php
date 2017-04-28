@@ -3,11 +3,18 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Follow extends CI_Controller {
 
+    function  __construct() {
+        parent::__construct();
+        
+        loged();
+        hasLocation();
+        $this->load->model('Usuario_model');
+        $this->load->model('Post_model');
+        $this->load->model('Follow_model');
+    }
+
     public function listFollow($username)
     {
-        $this->load->model('Follow_model');
-        $this->load->model('Usuario_model');
-
         $data['user'] = $this->Usuario_model->getUserByUsername($username);
 
         $listFollowComplete = $this->Follow_model->imFollowing($data['user']->id);
@@ -26,9 +33,6 @@ class Follow extends CI_Controller {
 
     public function listFollowed($username)
     {
-        $this->load->model('Follow_model');
-        $this->load->model('Usuario_model');
-        
         $data['user'] = $this->Usuario_model->getUserByUsername($username);
 
         $listFollowComplete = $this->Follow_model->imFollowing($data['user']->id);
@@ -55,8 +59,6 @@ class Follow extends CI_Controller {
 
     public function followUser($follow)
     {
-        $this->load->model('Follow_model');
-        $this->load->model('Usuario_model');
         $user_id = $this->session->userdata('id');
         $username = $this->session->userdata('username');
 
@@ -73,8 +75,6 @@ class Follow extends CI_Controller {
 
     public function unfollowUser($follow)
     {
-        $this->load->model('Follow_model');
-        $this->load->model('Usuario_model');
         $user_id = $this->session->userdata('id');
         $username = $this->session->userdata('username');
 

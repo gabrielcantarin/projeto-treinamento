@@ -14,13 +14,15 @@ class Usuario_model extends CI_Model {
 
         public function update()
         {
-            !isset($_POST['name']) ? : = $d['name'] = $_POST['name'];
-            $d['username']    = trim($_POST['username']);
-            $d['email']       = trim($_POST['email']);
-            $d['pass']        = md5($_POST['pass']);
-            $d['hash']        = $this->hashGenerator($_POST['email']);
+            // !isset($_POST['name']) ? : = $d['name'] = $_POST['name'];
+            // !isset($_POST['username']) ? : = $d['username'] = $_POST['username'];
+            // !isset($_POST['email']) ? : = $d['email'] = $_POST['email'];
+            // !isset($_POST['pass']) ? : = $d['pass'] = $_POST['pass'];
+            // !isset($_POST['hash']) ? : = $d['hash'] = $_POST['hash'];
 
-            $this->db->update('Usuario', $data);
+            // $d['hash']        = $this->hashGenerator($_POST['email']);
+
+            // $this->db->update('Usuario', $data);
         }
 
         public function login()
@@ -37,7 +39,6 @@ class Usuario_model extends CI_Model {
 
         public function createSession($username)
         {
-            // imprimir($username,1);
             $user = $this->getUserByUsername($username);
 
             $this->session->set_userdata(array(
@@ -49,6 +50,7 @@ class Usuario_model extends CI_Model {
                 'hash'          => $user->hash,
                 'last_lat'      => $user->last_lat,
                 'last_log'      => $user->last_log,
+                'last_city'     => $user->last_city,
                 'last_wave'     => $user->last_wave,
                 'last_follow'   => $user->last_follow,
                 'last_followed' => $user->last_followed,
@@ -89,15 +91,16 @@ class Usuario_model extends CI_Model {
                 }
         }
 
-        public function updateLiveLocationUser($lat = NULL, $log = NULL)
+        public function updateLiveLocationUser($lat = NULL, $log = NULL, $city = NULL)
         {
             if($lat && $log){
                 $this->db->set('last_lat', $lat);
                 $this->db->set('last_log', $log);
-
+                $this->db->set('last_city', $city);
                 $this->db->where('id', $this->session->userdata('id'));
 
                 $this->db->update('Usuario');
+                // imprimir($this->db->last_query(),1);
             }
         }
 

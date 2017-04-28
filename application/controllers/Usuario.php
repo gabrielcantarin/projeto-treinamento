@@ -3,12 +3,16 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Usuario extends CI_Controller {
 
-    public function profile($username)
-    {
+    function  __construct() {
+        parent::__construct();
+        $this->load->model('Usuario_model');
         $this->load->model('Post_model');
         $this->load->model('Follow_model');
-        $this->load->model('Usuario_model');
+    }
 
+    public function profile($username)
+    {
+        hasLocation();
         $listFollow = arr2col($this->Follow_model->imFollowing($this->session->userdata('id')), "username");
         $listFollow[] = $this->session->userdata('username');
 
@@ -23,7 +27,6 @@ class Usuario extends CI_Controller {
 
     public function register()
     {
-        $this->load->model('Usuario_model');
 
         $this->form_validation->set_rules('name', 'Nome Completo', 'trim|required|min_length[6]|max_length[50]');        
 
@@ -50,8 +53,6 @@ class Usuario extends CI_Controller {
 
     public function login()
     {
-        $this->load->model('Usuario_model');
-
         $this->form_validation->set_rules('email', 'E-mail', 'required|trim|min_length[4]|max_length[150]|valid_email');
         $this->form_validation->set_rules('pass', 'Senha', 'required|trim|min_length[6]|max_length[20]|callback_check_login');
 
@@ -63,13 +64,11 @@ class Usuario extends CI_Controller {
         } else {
             $user = $this->Usuario_model->login();
             $this->Usuario_model->createSession($user->username);
-            $this->Usuario_model->updateLiveLocationUser($_POST['lat'], $_POST['log']);
             $this->load->view('header');
             redirect(base_url('timeline'));
         }
     }
 
-    
 
     public function logout()
     {
@@ -80,8 +79,6 @@ class Usuario extends CI_Controller {
 
     public function forget()
     {
-        $this->load->model('Usuario_model');
-
         $this->form_validation->set_rules('email', 'E-mail', 'required|trim|min_length[4]|max_length[150]|valid_email|callback_check_email_exist|callback_valid_user');
 
         if ($this->form_validation->run() == FALSE)
