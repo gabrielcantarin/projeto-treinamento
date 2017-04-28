@@ -29,13 +29,8 @@
                 <li class="tu b ahx">
                     <input type="file" id="upload" name="upload" class="cg pl" value="Choose a file" accept="image/*" />
                 </li>
-                <li class="tu b ahx" upload='true' style="display:none">
-                    <div class="upload-demo-wrap"  style="width:300px;height:300px;padding:20px;margin: 0 auto;">
-                        <div id="upload-demo"></div>
-                    </div>
-                </li>
 
-                <li class="tu b ahx" upload='true'>
+                <li class="tu b ahx" >
                     <button class="cg pj cem" type="submit" name="uploadbtn">Salvar Foto</button>
                 </li>
                 <? echo form_close() ?>

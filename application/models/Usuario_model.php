@@ -133,9 +133,9 @@ class Usuario_model extends CI_Model {
             $this->db->update('Usuario');
         }
 
-        public function updateUserCover($user_id, $file)
+        public function updateUserCover($user_id, $data)
         {
-            $this->db->set('last_bg', $file);
+            $this->db->set('last_bg', $data['upload_data']['file_name']);
             $this->db->where('id', $user_id);
             $this->db->update('Usuario');
         }

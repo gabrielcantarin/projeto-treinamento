@@ -53,8 +53,6 @@ class Config extends CI_Controller {
              
             $this->Usuario_model->updateUserPhoto($this->session->userdata('id'), $data);
             $this->Usuario_model->createSession($this->session->userdata('username'));
-            $data["message"]['error'] =  "";
-            $data["message"]['success'] =  "<p>Foto atualizada com Sucesso!</p>";
             redirect(base_url($newname));
         }
 
@@ -63,56 +61,48 @@ class Config extends CI_Controller {
         $this->load->view('footer');
     }
 
-    function create_thumb_gallery($upload_data, $source_img, $new_img, $width, $height)
-    {
-        $config['image_library'] = 'gd2';
-        $config['source_image'] = $source_img;
-        $config['create_thumb'] = FALSE;
-        $config['new_image'] = $new_img;
-        $config['quality'] = '100%';
-         
-        $this->load->library('image_lib');
-        $this->image_lib->initialize($config);
-         
-        if ( ! $this->image_lib->resize() )
-        {
-            echo $this->image_lib->display_errors();
-        }else{
-            $config['image_library'] = 'gd2';
-            $config['source_image'] = $source_img;
-            $config['create_thumb'] = FALSE;
-            $config['maintain_ratio'] = TRUE;
-            $config['quality'] = '100%';
-            $config['new_image'] = $source_img;
-            $config['overwrite'] = TRUE;
-            $config['width'] = $width;
-            $config['height'] = $height;
-            $dim = (intval($upload_data['image_width']) / intval($upload_data['image_height'])) - ($config['width'] / $config['height']);
-            $config['master_dim'] = ($dim > 0)? 'height' : 'width';
-             
-            $this->image_lib->clear();
-            $this->image_lib->initialize($config);
-         
-            if ( ! $this->image_lib->resize())
-            {
-                echo $this->image_lib->display_errors();
-            }else{
-                return true;
-            }
-        }
-    }
-
     public function coverPhoto()
     {
-        if(isset($_POST['img'])){
+        $config['upload_path']          = 'media';
+        $config['allowed_types']        = 'jpg|png';
+        $config['max_size']             = 512;
+        $config['min_width']            = 300;
+        $config['min_height']           = 300;
+        $config['max_width']            = 1920;
+        $config['max_height']           = 1920;
+        $config['encrypt_name']         = TRUE;
+        $config['remove_spaces']        = TRUE;
+        $config['file_ext_tolower']     = TRUE;
+        $data["message"]['error'] =  "";
+        $data["message"]['success'] =  "";
 
-            $file = upload_ajax($_POST['img']);
-            $this->Usuario_model->updateUserCover($this->session->userdata('id'), $file);
+        $this->load->library('upload', $config);
+
+        if ( ! $this->upload->do_upload('upload'))
+        {
+            if (strtoupper($_SERVER['REQUEST_METHOD']) == 'POST')
+            {
+                $data["message"]['error'] = $this->upload->display_errors();
+            }
+        } else {
+            $upload_data = $this->upload->data();
+            $data['upload_data'] = $upload_data;
+
+            $newname = image('media/'.$upload_data['file_name'],'wide');
+            $data['upload_data']['file_name'] =  explode("/",$newname)[1];
+
+            $this->Usuario_model->updateUserCover($this->session->userdata('id'), $data);
             $this->Usuario_model->createSession($this->session->userdata('username'));
+            redirect(base_url($newname));
+            // imprimir($newname,1);
         }
+
         $this->load->view('header');
-        $this->load->view('config_user_cover');
+        $this->load->view('config_user_cover', $data);
         $this->load->view('footer');
+
+
+
     }
 
     public function localization()

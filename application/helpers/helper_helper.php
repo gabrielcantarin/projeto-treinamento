@@ -149,7 +149,7 @@
 		$s = "";
 
 		$s .= '<div class="rp bqq agk">';
-		$s .= '<div class="rv" style="background-image:url(' . base_url('assets/img/').$user->last_bg.')"></div>';
+		$s .= '<div class="rv" style="background-image:url(' . base_url('media/').$user->last_bg.')"></div>';
         $s .= '<div class="rq awx">';
         $s .= '<a href="'.base_url($user->username).'">';
         $s .= '<img class="bqr" src="'.base_url('media/'. $user->last_picture).'" />';

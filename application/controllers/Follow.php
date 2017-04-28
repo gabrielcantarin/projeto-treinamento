@@ -78,12 +78,14 @@ class Follow extends CI_Controller {
         $user_id = $this->session->userdata('id');
         $username = $this->session->userdata('username');
 
-        if($this->Follow_model->isAlreadyFollower($user_id, $follow)){
-            $this->Follow_model->unfollow($user_id, $follow);
-            $this->Usuario_model->updateFollow($user_id, -1);
-            $this->Usuario_model->updateFollowed($follow, '-1');
-            $this->Usuario_model->createSession($username);
-        
+        if($user_id != $follow){
+            if($this->Follow_model->isAlreadyFollower($user_id, $follow)){
+                $this->Follow_model->unfollow($user_id, $follow);
+                $this->Usuario_model->updateFollow($user_id, -1);
+                $this->Usuario_model->updateFollowed($follow, '-1');
+                $this->Usuario_model->createSession($username);
+            
+            }
         }
 
         redirect_back();

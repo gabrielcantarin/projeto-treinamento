@@ -44,10 +44,13 @@
                                     </a>
                                 </li>
                             </ul>
+
                             <div class="bqi">
+                            <? if($im->id != $this->session->userdata('id')){ ?>
                                 <a href="<?= base_url('unfollow/'.$im->id) ?>">
                                     <button class="cg pq pz">Unfollow</button>
                                 </a>
+                            <? } ?>
                             </div>
                         </div>
                     </div>
