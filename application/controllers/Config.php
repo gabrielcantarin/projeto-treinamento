@@ -29,7 +29,7 @@ class Config extends CI_Controller {
         $config['min_width']            = '300px';
         $config['min_height']           = '300px';
         $config['max_width']            = 1920;
-        $config['max_height']           = 1080;
+        $config['max_height']           = 1920;
         $config['encrypt_name']         = TRUE;
         $config['remove_spaces']        = TRUE;
         $config['file_ext_tolower']     = TRUE;
