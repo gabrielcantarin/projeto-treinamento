@@ -28,6 +28,9 @@
 
     <link rel="stylesheet" href="<?= base_url('assets/css/croppie.min.css') ?>">
 
+    <link rel="shortcut icon" href="<?= base_url('assets/img/logo-waving2.png') ?>">
+
+
 </head>
 
 <body>
