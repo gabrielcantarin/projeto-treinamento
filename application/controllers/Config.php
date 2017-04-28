@@ -26,8 +26,8 @@ class Config extends CI_Controller {
         $config['upload_path']          = 'media';
         $config['allowed_types']        = 'jpg|png';
         $config['max_size']             = 512;
-        $config['min_width']            = '300px';
-        $config['min_height']           = '300px';
+        $config['min_width']            = 300;
+        $config['min_height']           = 300;
         $config['max_width']            = 1920;
         $config['max_height']           = 1920;
         $config['encrypt_name']         = TRUE;
