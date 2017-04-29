@@ -58,6 +58,38 @@ class CI_Model {
 		log_message('info', 'Model Class Initialized');
 	}
 
+	public function updateSession($user_id)
+	{
+		$this->load->model('Usuario_model');
+		$this->load->model('Follow_model');
+
+		$user = $this->Usuario_model->getUserById($user_id);
+		$following = $this->Follow_model->following($user_id);
+		$followed = $this->Follow_model->followed($user_id);
+
+		$this->session->set_userdata(array(
+                'id'            => $user->id,
+                'name'          => $user->name,
+                'username'      => $user->username,
+                'email'         => $user->email,
+                'valid'         => $user->valid,
+                'hash'          => $user->hash,
+                'last_lat'      => $user->last_lat,
+                'last_log'      => $user->last_log,
+                'last_city'     => $user->last_city,
+                'last_wave'     => $user->last_wave,
+                'last_follow'   => $user->last_follow,
+                'last_followed' => $user->last_followed,
+                'last_range'    => $user->last_range,
+                'last_login'    => $user->last_login,
+                'last_picture'  => $user->last_picture,
+                'last_bg'       => $user->last_bg,
+                'listfollowing' => $following,
+                'listfollowed'  => $followed
+        ));
+
+	}
+
 	// --------------------------------------------------------------------
 
 	/**

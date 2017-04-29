@@ -14,13 +14,10 @@ class Usuario extends CI_Controller {
     public function profile($username)
     {
         hasLocation();
-        $listFollow = arr2col($this->Follow_model->imFollowing($this->session->userdata('id')), "username");
-        $listFollow[] = $this->session->userdata('username');
 
-        $data['posts'] = $this->Post_model->getPostsOfListUsers([$username]);
         $data['user'] = $this->Usuario_model->getUserByUsername($username);
-        $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
-
+        $data['posts'] = $this->Post_model->getPostsOfListUsers([$data['user']]);
+        $data['should_follow'] = $this->Follow_model->shouldFollow();
         $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $this->session->userdata('id'));
 
 

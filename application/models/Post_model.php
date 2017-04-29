@@ -47,6 +47,8 @@ class Post_model extends CI_Model {
 
         public function getPostsOfListUsers($arr)
         {
+            $arr = arr2col($arr, 'username');
+
             $a = "fn_distance(".$this->session->userdata('last_lat').",".$this->session->userdata('last_log').",last_lat,last_log) as dis";
             $this->db->select('*');
             $this->db->select("Post.id as id_post", false);

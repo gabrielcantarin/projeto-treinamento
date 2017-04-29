@@ -32,31 +32,27 @@ class Post extends CI_Controller {
     public function index($view = 'near')
     {
         $user_id = $this->session->userdata('id');
-        
-        $listFollow = arr2col($this->Follow_model->imFollowing($user_id), "username");
-        $listFollow[] = $this->session->userdata('username');
-        $listClosest = arr2col($this->Usuario_model->getClosestPeople(20), "username");
+        $listfollowing = $this->session->userdata('listfollowing');
+        $listClosest = $this->Usuario_model->getClosestPeople(20);
 
 
         if($view == 'near'){
-            $data['posts'] = $this->Post_model->getPostsOfListUsers($listClosest);
+            $posts = $this->Post_model->getPostsOfListUsers($listClosest);
         }elseif($view == 'follow'){
-            $data['posts'] = $this->Post_model->getPostsOfListUsers($listFollow);
+            $posts = $this->Post_model->getPostsOfListUsers($listfollowing);
         }else{
-            $teste1 = $this->Post_model->getPostsOfListUsers($listClosest);
-            $teste2 = $this->Post_model->getPostsOfListUsers($listFollow);
-            $data['posts'] = array_merge($teste1, $teste2);
-            $new = [];
-            usort($data['posts'], function($a, $b) {
+            $posts1 = $this->Post_model->getPostsOfListUsers($listClosest);
+            $posts2 = $this->Post_model->getPostsOfListUsers($listfollowing);
+            $posts = array_merge($posts1, $posts2);
+
+            usort($posts, function($a, $b) {
                 return strtotime($b->date) - strtotime($a->date);
             });
-            $data['posts'] = unique_multidim_array($data['posts'], "id_post");
+            $posts = unique_multidim_array($posts, 'id_post');
         }
 
-        $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $user_id);
-
-        // imprimir($data,1);
-        $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
+        $data['posts'] = $this->Like_model->getLikesOfListPosts($posts, $user_id);
+        $data['should_follow'] = $this->Follow_model->shouldFollow();
 
         $this->load->view('header');
         $this->load->view('timeline', $data);

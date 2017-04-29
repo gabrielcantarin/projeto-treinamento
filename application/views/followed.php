@@ -14,10 +14,9 @@
 
 
 
-
         <div class="col-lg-8 col-lg-offset-0 col-md-6 col-md-offset-0 phone-holder">
             <div class="row">
-                <? if(isset($followingMe)) {foreach($followingMe as $im){  ?>
+                <?  if($followed) { foreach($followed as $im){  ?>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="rp bqq agk">
                         <div class="rv" style="background-image:url(<?= base_url('media/'.$im->last_bg) ?>);"></div>
@@ -45,6 +44,7 @@
                                 </li>
                             </ul>
                             <div class="bqi">
+                            <? if($im->id != $this->session->userdata('id')){ ?>
                                 <? if($im->isAlreadyFollower){ ?>
                                 <a href="<?= base_url('unfollow/'.$im->id) ?>">
                                     <button class="cg pq pz">Unfollow</button>
@@ -54,6 +54,7 @@
                                     <button class="cg pq pz">Follow</button>
                                 </a>
                                 <? } ?>
+                            <? } ?>
                             </div>
                         </div>
                     </div>

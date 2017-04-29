@@ -40,6 +40,7 @@ class Usuario_model extends CI_Model {
         public function createSession($username)
         {
             $user = $this->getUserByUsername($username);
+            // $user = $this->getUserByUsername($username);
 
             $this->session->set_userdata(array(
                 'id'            => $user->id,
@@ -143,6 +144,17 @@ class Usuario_model extends CI_Model {
         public function getUserByUsername($username)
         {
             $this->db->where('username', $username);
+
+            $query = $this->db->get('Usuario');
+
+            if($query !== FALSE && $query->num_rows() > 0){
+                return $query->row();
+            }
+        }
+
+        public function getUserById($user_id)
+        {
+            $this->db->where('id', $user_id);
 
             $query = $this->db->get('Usuario');
 

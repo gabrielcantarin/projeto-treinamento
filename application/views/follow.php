@@ -17,7 +17,7 @@
 
         <div class="col-lg-8 col-lg-offset-0 col-md-6 col-md-offset-0 phone-holder">
             <div class="row">
-                <? if($imFollowing) {foreach($imFollowing as $im){  ?>
+                <? if($following) {foreach($following as $im){  ?>
                 <div class="col-lg-6 col-md-6 col-sm-6">
                     <div class="rp bqq agk">
                         <div class="rv" style="background-image:url(<?= base_url('media/'.$im->last_bg) ?>);"></div>

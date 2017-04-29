@@ -15,16 +15,23 @@ class Follow extends CI_Controller {
 
     public function listFollow($username)
     {
-        $data['user'] = $this->Usuario_model->getUserByUsername($username);
+        $user = $this->Usuario_model->getUserByUsername($username);
 
-        $listFollowComplete = $this->Follow_model->imFollowing($data['user']->id);
-        $listFollow = arr2col($listFollowComplete, "username");
-        $listFollow[] = $this->session->userdata('username');
+        $following = $this->Follow_model->following($user->id);
 
-        $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
-        $data['imFollowing'] = $listFollowComplete;
+        foreach($following as $f){
+            if($this->Follow_model->isAlreadyFollower($user->id, $f->user_id)){
+                $f->isAlreadyFollower = 1;
+                $data['imFollowing'][] = $f;
+            }else{
+                $f->isAlreadyFollower = 0;
+                $data['imFollowing'][] = $f;
+            }
+        }
 
-        // imprimir($data,1);
+        $data['user'] = $user;
+        $data['should_follow'] = $this->Follow_model->shouldFollow();
+        $data['following'] = $following;
 
         $this->load->view('header');
         $this->load->view('follow',$data);
@@ -33,24 +40,23 @@ class Follow extends CI_Controller {
 
     public function listFollowed($username)
     {
-        $data['user'] = $this->Usuario_model->getUserByUsername($username);
+        $user = $this->Usuario_model->getUserByUsername($username);
 
-        $listFollowComplete = $this->Follow_model->imFollowing($data['user']->id);
-        $listFollow = arr2col($listFollowComplete, "username");
-        $listFollow[] = $this->session->userdata('username');
-
-        $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
-        $followed = $this->Follow_model->followingMe($data['user']->id);
+        $followed = $this->Follow_model->followed($user->id);
 
         foreach($followed as $f){
-            if($this->Follow_model->isAlreadyFollower($data['user']->id, $f->user_id)){
+            if($this->Follow_model->isAlreadyFollower($user->id, $f->user_id)){
                 $f->isAlreadyFollower = 1;
                 $data['followingMe'][] = $f;
-            }else{
+            } else {
                 $f->isAlreadyFollower = 0;
                 $data['followingMe'][] = $f;
             }
         }
+
+        $data['user'] = $user;
+        $data['should_follow'] = $this->Follow_model->shouldFollow();
+        $data['followed'] = $followed;
 
         $this->load->view('header');
         $this->load->view('followed',$data);
