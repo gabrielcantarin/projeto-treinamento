@@ -293,7 +293,7 @@
 	{
 		$post->liked = $post->liked == 1? "liked" : "";
 		$s = "";
-		$s .= '<li class="tu b ahx">';
+		$s .= '<li class="tu b ahx post">';
 		$s .= '<a href="'.base_url($post->username).'">';
 		$s .= '<img class="bqa wp yy agc" src="'.base_url('media/'. $post->last_picture).'" />';
 		$s .= '</a>';

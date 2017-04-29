@@ -8,6 +8,7 @@ class Usuario extends CI_Controller {
         $this->load->model('Usuario_model');
         $this->load->model('Post_model');
         $this->load->model('Follow_model');
+        $this->load->model('Like_model');
     }
 
     public function profile($username)
@@ -16,9 +17,12 @@ class Usuario extends CI_Controller {
         $listFollow = arr2col($this->Follow_model->imFollowing($this->session->userdata('id')), "username");
         $listFollow[] = $this->session->userdata('username');
 
-        $data['posts'] = $this->Post_model->getPostsByUsername($username);
+        $data['posts'] = $this->Post_model->getPostsOfListUsers([$username]);
         $data['user'] = $this->Usuario_model->getUserByUsername($username);
         $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
+
+        $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $this->session->userdata('id'));
+
 
         $this->load->view('header');
         $this->load->view('profile', $data);

@@ -54,10 +54,21 @@ class Post extends CI_Controller {
         }
 
         $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $user_id);
+
+        // imprimir($data,1);
         $data['should_follow'] = $this->Follow_model->shouldFollow($listFollow);
 
         $this->load->view('header');
         $this->load->view('timeline', $data);
+        $this->load->view('footer');
+    }
+
+    public function getPost($id_post)
+    {
+        $data['post'] = $this->Post_model->getPost($id_post);
+
+        $this->load->view('header');
+        $this->load->view('post', $data);
         $this->load->view('footer');
     }
 
