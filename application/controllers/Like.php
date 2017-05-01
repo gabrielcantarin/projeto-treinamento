@@ -18,16 +18,13 @@ class Like extends CI_Controller {
         if(!$this->Like_model->hasAlreadyLiked($user_id, $post_id)){
             $this->Like_model->like($user_id, $post_id);
             $this->Post_model->updateLike($post_id,"+ 1" );
+        }else{
+            $this->Like_model->unlike($user_id, $post_id);
+            $this->Post_model->updateLike($post_id,"- 1" );
         }
 
         redirect_back();
     }
 
-    public function unlikePost($post_id)
-    {
-
-    }
-
-    
 
 }

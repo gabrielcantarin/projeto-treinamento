@@ -25,7 +25,8 @@
                 </li>
 
                 <li class="tu b ahx">
-                    <form class="form-horizontal cem" action="<?= base_url('update') ?>" method="POST">
+                    <? alerts($this->session->flashdata()); ?>
+                    <form class="form-horizontal cem" action="<?= base_url('config') ?>" method="POST">
                         <div class="form-group">
                             <label class="control-label col-sm-3" for="name">Nome Completo:</label>
                             <div class="col-sm-9">
@@ -44,12 +45,19 @@
                                 <textarea name="bio" class="form-control" placeholder="Digite aqui uma Biografia"><?= set_value('bio', $user->bio) ?></textarea>
                             </div>
                         </div>
-                        <!-- <div class="form-group">
+                        <div class="form-group">
                             <label class="control-label col-sm-3" for="name">Sexo:</label>
                             <div class="col-sm-9">
-                              <input type="text" class="form-control" id="name" placeholder="Nome de Usuário">
+                              <!-- <select class="form-control">
+                                  <option selected>Sexo</option>
+                                  <option value="f">Feminino</option>
+                                  <option value="m">Masculino</option>
+                                  <option value="o">Outro</option>
+                                </select> -->
+                                <? $options = array(''=>'-Selecione-','f'=>'Feminino','m'=>'Masculino','o'=>'Outro'); ?>
+                                <?= form_dropdown('sexo', $options, set_value('sexo', $user->sexo), 'class="form-control"'); ?>
                             </div>
-                        </div> -->
+                        </div>
                         <div class="form-group"> 
                             <div class="col-sm-offset-3 col-sm-12">
                                 <button type="submit" class="cg pl">Salvar</button>

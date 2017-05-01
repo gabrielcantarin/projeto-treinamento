@@ -9,6 +9,7 @@ class Usuario extends CI_Controller {
         $this->load->model('Post_model');
         $this->load->model('Follow_model');
         $this->load->model('Like_model');
+        $this->load->model('Wave_model');
     }
 
     public function profile($username)
@@ -18,8 +19,12 @@ class Usuario extends CI_Controller {
         $data['user'] = $this->Usuario_model->getUserByUsername($username);
         $data['posts'] = $this->Post_model->getPostsOfListUsers([$data['user']]);
         $data['should_follow'] = $this->Follow_model->shouldFollow();
-        $data['posts'] = $this->Like_model->getLikesOfListPosts($data['posts'], $this->session->userdata('id'));
+        $posts = $this->Like_model->getLikesOfListPosts($data['posts'], $this->session->userdata('id'));
+        $data['posts'] = $this->Wave_model->getWavesOfListPosts($posts, $this->session->userdata('id'));
 
+        $following = $this->Follow_model->isAlreadyFollower($this->session->userdata('id'), $data['user']->id);
+
+        $data['user']->isAlreadyFollower = $following? 1 : 0;
 
         $this->load->view('header');
         $this->load->view('profile', $data);
@@ -47,8 +52,7 @@ class Usuario extends CI_Controller {
         } else {
             $this->Usuario_model->insert();
             // $this->emailConfirmacao($this->Usuario_model->login());
-            $this->session->set_flashdata('success', '<p>Verifique sua caixa de entrada e verifique seu cadastro.</p>');
-            redirect(current_url());
+            redirect(base_url('timeline'));
         }
     }
 
@@ -64,7 +68,6 @@ class Usuario extends CI_Controller {
             $this->load->view('footer');
         } else {
             $user = $this->Usuario_model->login();
-            $this->Usuario_model->createSession($user->username);
             $this->load->view('header');
             redirect(base_url('timeline'));
         }

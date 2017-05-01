@@ -173,9 +173,25 @@
         $s .= '</a>';
         $s .= '</li>';
         $s .= '</ul>';
+        $s .= '<div class="bqi">';
+        if($user->id != $_SESSION['id']){ 
+            if($user->isAlreadyFollower){ 
+			$s .= '<a href="'.base_url('unfollow/'.$user->id) .'">';
+            $s .= '<button class="cg pq pz">Unfollow</button>';
+            $s .= '</a>';
+            }else{
+            $s .= '<a href="'.base_url('follow/'.$user->id).'">';
+            $s .= '<button class="cg pq pz">Follow</button>';
+            $s .= '</a>';
+            }
+        }else{
+        	$s .= '</br>'; 
+        }
+        $s .= '</div>';
     	$s .= '</div>';
         $s .= '</div>';
 
+        // imprimir($user);
                 
 		print_r($s);
 	}
@@ -292,34 +308,88 @@
 	function constroy_post($post)
 	{
 		$post->liked = $post->liked == 1? "liked" : "";
+		$post->waved = $post->waved == 1? "waved" : "";
+
 		$s = "";
 		$s .= '<li class="tu b ahx post">';
-		$s .= '<a href="'.base_url($post->username).'">';
-		$s .= '<img class="bqa wp yy agc" src="'.base_url('media/'. $post->last_picture).'" />';
+		$s .= '<a class="yy" href="'.base_url($post->username).'">';
+		$s .= '<img class="bqa wp agc" src="'.base_url('media/'. $post->last_picture).'" />';
 		$s .= '</a>';
+
 		$s .= '<div class="tv">';
 		$s .= '<div class="bqj">';
 		$s .= '<small class="aec axr">';
 		$s .= date('d/m/Y - H:i:s',  strtotime($post->date)).' - ';
 		$s .= $post->dis < 2 ? "Relativamente Perto" :  number_format($post->dis, 2, '.', ''). ' km' ;
 		$s .= '</small>';
+		$s .= '<a class="bph" href="'.base_url($post->username).'">';
 		$s .= '<h6>'. $post->name .'</h6>';
+		$s .= '</a>';
 		$s .= '</div>';
+
 		$s .= '<p>';
 		$s .= htmlspecialchars($post->message);
 		$s .= '</p>';
 
+		if($post->father){
+		$post->father->liked = $post->father->liked == 1? "liked" : "";
+		$post->father->waved = $post->father->waved == 1? "waved" : "";
+
+		$s .= '<ul class="bqe afw">';
+          $s .= '<li class="tu agd waving">';
+			$s .= '<a class="yy" href="'.base_url($post->father->username).'">';
+            $s .= '<img class="bqa wp agc" src="'.base_url('media/'. $post->father->last_picture).'" />';
+			$s .= '</a>';
+
+            $s .= '<div class="tv">';
+				$s .= '<a class="bph" href="'.base_url($post->father->username).'">';
+                $s .= '<strong>'. $post->father->name .'</strong>';
+				$s .= '</a>';
+				$s .= '<p>';
+				$s .= htmlspecialchars($post->father->message);
+				$s .= '</p>';
+
+				$s .= '<ul class="bqs">';
+				$s .= '<li class="bqt">';
+				$s .= '<a href="'.base_url('like/'.$post->father->post_id).'" class="bph">';
+				$s .= '<i class="icon ion-heart like '. $post->father->liked .'"></i> '. $post->father->likes;
+				$s .= '</a>';
+				$s .= '</li>';
+
+    			if($post->father->username != $_SESSION['username']){
+					$s .= '<li class="bqt">';
+					$s .= '<a href="'.base_url('wave/'.$post->father->post_id).'" class="bph">';
+					$s .= '<i class="icon ion-radio-waves wave '. $post->father->waved .'"></i> '.$post->father->waves;
+					$s .= '</a>';
+					$s .= '</li>';
+				}
+		        $s .= '</ul>';
+
+            $s .= '</div>';
+          $s .= '</li>';
+        $s .= '</ul>';
+    	}
+
 		$s .= '<ul class="bqs">';
+
 		$s .= '<li class="bqt">';
-		$s .= '<a href="'.base_url('like/'.$post->id_post).'" class="bph" data-toggle="modal">';
+		$s .= '<a href="'.base_url('like/'.$post->id_post).'" class="bph">';
 		$s .= '<i class="icon ion-heart like '. $post->liked .'"></i> '. $post->likes;
 		$s .= '</a>';
 		$s .= '</li>';
-		// $s .= '<li class="bqt">';
-		// $s .= '<a href="#" class="bph">';
-		// $s .= '<i class="icon ion-radio-waves wave"></i> 0';
-		// $s .= '</a>';
-		// $s .= '</li>';
+
+    	if($post->username != $_SESSION['username']){
+	    	if($post->message){
+				$s .= '<li class="bqt">';
+				$s .= '<a href="'.base_url('wave/'.$post->id_post).'" class="bph">';
+				$s .= '<i class="icon ion-radio-waves wave '. $post->waved .'"></i> '.$post->waves;
+				$s .= '</a>';
+				$s .= '</li>';
+	    	}
+    	}
+
+
+
         $s .= '</ul>';
 
 		$s .= '</div>';

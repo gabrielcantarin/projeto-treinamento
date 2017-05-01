@@ -19,8 +19,10 @@ class Follow extends CI_Controller {
 
         $following = $this->Follow_model->following($user->id);
 
+        $loggedFollowing = arr2col($this->session->userdata('listfollowing'), "id");
+
         foreach($following as $f){
-            if($this->Follow_model->isAlreadyFollower($user->id, $f->user_id)){
+            if(in_array($f->id, $loggedFollowing)) {
                 $f->isAlreadyFollower = 1;
                 $data['imFollowing'][] = $f;
             }else{
@@ -33,6 +35,9 @@ class Follow extends CI_Controller {
         $data['should_follow'] = $this->Follow_model->shouldFollow();
         $data['following'] = $following;
 
+        $following = $this->Follow_model->isAlreadyFollower($this->session->userdata('id'), $data['user']->id);
+        $data['user']->isAlreadyFollower = $following? 1 : 0;
+
         $this->load->view('header');
         $this->load->view('follow',$data);
         $this->load->view('footer');
@@ -44,8 +49,10 @@ class Follow extends CI_Controller {
 
         $followed = $this->Follow_model->followed($user->id);
 
+        $loggedFollowing = arr2col($this->session->userdata('listfollowing'), "id");
+
         foreach($followed as $f){
-            if($this->Follow_model->isAlreadyFollower($user->id, $f->user_id)){
+            if(in_array($f->id, $loggedFollowing)){
                 $f->isAlreadyFollower = 1;
                 $data['followingMe'][] = $f;
             } else {
@@ -57,6 +64,9 @@ class Follow extends CI_Controller {
         $data['user'] = $user;
         $data['should_follow'] = $this->Follow_model->shouldFollow();
         $data['followed'] = $followed;
+
+        $following = $this->Follow_model->isAlreadyFollower($this->session->userdata('id'), $data['user']->id);
+        $data['user']->isAlreadyFollower = $following? 1 : 0;
 
         $this->load->view('header');
         $this->load->view('followed',$data);

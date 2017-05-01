@@ -33,9 +33,8 @@ class Follow_model extends CI_Model {
 
         public function shouldFollow($alreadyFollow = NULL)
         {
-            $folowing = $this->session->userdata('following');
-
-            $listfollowing = arr2col($this->session->userdata('listfollowing'), 'id');
+            $listfollowing = $this->session->userdata('listfollowing');
+            $listfollowing = arr2col($listfollowing, 'id');
             $listfollowing[] = $this->session->userdata('id');
 
             if($listfollowing){

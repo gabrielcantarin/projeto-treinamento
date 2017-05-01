@@ -2,10 +2,10 @@
     $latphp = $this->session->userdata('last_lat'); 
     $logphp = $this->session->userdata('last_log'); 
     $cityphp = $this->session->userdata('last_city');
-    
-    $latphp = isset($latphp) ? $latphp : "-23.550519";
-    $logphp = isset($logphp) ? $logphp : "-46.633309";
-    $cityphp = isset($cityphp) ? $cityphp : "São Paulo";
+
+    $latphp = ($latphp) ? $latphp : "-23.550519";
+    $logphp = ($logphp) ? $logphp : "-46.633309";
+    $cityphp = ($cityphp) ? $cityphp : "São Paulo";
 ?>
 
 
@@ -28,7 +28,7 @@
         <div class="col-lg-8 col-lg-offset-0 col-md-6 col-md-offset-0 phone-holder">
             <ul class="ca bqe bqf agk">
                 
-                    <? alerts($this->session->flashdata('success'));  ?>
+                <? alerts($this->session->flashdata());  ?>
             <!-- POST NEW WAVE -->
                 <li class="tu b ahx">
                     <h2>Localização</h2>
@@ -51,9 +51,9 @@
                     <div class="tv">
                         <div class="bqi">
                             <form class="form-horizontal cem" action="<?= base_url('localization') ?>" method="POST">
-                                <input type="text" id="lat" name="lat" value="<?= $latphp ?>">
-                                <input type="text" id="log" name="log" value="<?= $logphp ?>">
-                                <input type="text" id="city" name="city" value="<?= $cityphp ?>">
+                                <input type="hidden" id="lat" name="lat" value="<?= $latphp ?>">
+                                <input type="hidden" id="log" name="log" value="<?= $logphp ?>">
+                                <input type="hidden" id="city" name="city" value="<?= $cityphp ?>">
                                 <button class="cg pj cem" type="submit">Salvar Localização</button>
                             </form>
                         </div>
@@ -71,6 +71,7 @@
 <script type="text/javascript">
 var  $lat;
 var  $log;
+var  $city;
 
 function initMap() {
   var map = new google.maps.Map(document.getElementById('map'), {

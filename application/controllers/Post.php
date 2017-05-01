@@ -12,6 +12,7 @@ class Post extends CI_Controller {
         $this->load->model('Post_model');
         $this->load->model('Follow_model');
         $this->load->model('Like_model');
+        $this->load->model('Wave_model');
     }
 
 	public function create()
@@ -25,8 +26,32 @@ class Post extends CI_Controller {
             $this->Post_model->create();
             $this->Usuario_model->updateWaves($this->session->userdata('id'), 1);
             $this->Usuario_model->createSession($this->session->userdata('username'));
-            redirect(base_url('timeline'));
+            redirect_back();
         }
+    }
+
+    public function wave($id_post)
+    {
+        $original = $this->Post_model->getPostById($id_post);
+        $user_id = $this->session->userdata('id');
+
+        if($original->user_id != $user_id){
+            if(!$this->Wave_model->hasAlreadyWaved($user_id, $original->post_id)){
+                $_POST['message'] = '';
+                $_POST['lat'] = $this->session->userdata('last_lat');
+                $_POST['log'] = $this->session->userdata('last_log');
+                $_POST['father'] = $original->post_id;
+
+                $this->Wave_model->wave($user_id, $id_post);
+                $this->Post_model->updateWave($id_post,"+ 1" );
+                $this->Post_model->create();
+            }else{
+                $this->Wave_model->unwave($user_id, $id_post);
+                $this->Post_model->updateWave($id_post,"- 1" );
+                $this->Post_model->removeWave($user_id, $id_post);
+            }
+        }
+        redirect_back();
     }
 
     public function index($view = 'near')
@@ -51,7 +76,9 @@ class Post extends CI_Controller {
             $posts = unique_multidim_array($posts, 'id_post');
         }
 
-        $data['posts'] = $this->Like_model->getLikesOfListPosts($posts, $user_id);
+        $posts = $this->Like_model->getLikesOfListPosts($posts, $user_id);
+        $data['posts'] = $this->Wave_model->getWavesOfListPosts($posts, $user_id);
+
         $data['should_follow'] = $this->Follow_model->shouldFollow();
 
         $this->load->view('header');

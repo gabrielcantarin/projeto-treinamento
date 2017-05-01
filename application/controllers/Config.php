@@ -14,11 +14,27 @@ class Config extends CI_Controller {
 
 	public function index()
     {
-        $data['user'] = $this->Usuario_model->getUserByUsername($this->session->userdata('username'));
+        $username = $this->session->userdata('username');
+
+        $data['user'] = $this->Usuario_model->getUserByUsername($username);
+        $this->form_validation->set_rules('name', 'Nome Completo', 'trim|required|min_length[6]|max_length[50]');        
+
+        if (isset($_POST['username']) && $_POST['username'] != $username) {
+            $this->form_validation->set_rules('username', 'Nome de Usuário', 'trim|alpha|required|min_length[6]|max_length[50]|is_unique[Usuario.username]');
+        }
+
+
+        if ($this->form_validation->run())
+        {
+            $this->session->set_flashdata('success', '<p>Dados atualizados com sucesso!</p>');
+            $this->Usuario_model->update();
+        }
 
         $this->load->view('header');
         $this->load->view('config_user_data', $data);
         $this->load->view('footer');
+
+        
     }
 
     public function profilePhoto()
@@ -28,8 +44,8 @@ class Config extends CI_Controller {
         $config['max_size']             = 512;
         $config['min_width']            = 300;
         $config['min_height']           = 300;
-        $config['max_width']            = 1920;
-        $config['max_height']           = 1920;
+        $config['max_width']            = 2500;
+        $config['max_height']           = 2500;
         $config['encrypt_name']         = TRUE;
         $config['remove_spaces']        = TRUE;
         $config['file_ext_tolower']     = TRUE;
@@ -68,8 +84,8 @@ class Config extends CI_Controller {
         $config['max_size']             = 512;
         $config['min_width']            = 300;
         $config['min_height']           = 300;
-        $config['max_width']            = 1920;
-        $config['max_height']           = 1920;
+        $config['max_width']            = 2500;
+        $config['max_height']           = 2500;
         $config['encrypt_name']         = TRUE;
         $config['remove_spaces']        = TRUE;
         $config['file_ext_tolower']     = TRUE;
@@ -118,14 +134,28 @@ class Config extends CI_Controller {
             $this->load->view('footer');
             
         } else {
-            $this->Usuario_model->updateLiveLocationUser($_POST['lat'], $_POST['log'], $_POST['city']);
-            $this->Usuario_model->createSession($data['user']->username);
+            $this->Usuario_model->updateLiveLocationUser($_POST['lat'], $_POST['log'], $_POST['city'], $data['user']->id);
+            $this->session->set_flashdata('success', '<p>Localização Atualizada com Sucesso.</p>');
 
             $this->load->view('header');
             $this->load->view('config_user_localization', $data);
             $this->load->view('footer');
         }
 
+    }
+
+    public function check_username()
+    {
+        if ($_POST['email'] == $this->session->userdata('username'))
+        {
+                $this->form_validation->set_message('check_login', 'E-mail/Senha está incorreto.');
+                return FALSE;
+        }
+        else
+        {
+                return TRUE;
+        }
+    
     }
 
     

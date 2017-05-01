@@ -10,19 +10,32 @@ class Usuario_model extends CI_Model {
             $data['hash']        = $this->hashGenerator($_POST['email']);
 
             $this->db->insert('Usuario', $data);
+            $id = $this->db->insert_id();
+            $this->updateSession($id);
         }
 
         public function update()
         {
-            // !isset($_POST['name']) ? : = $d['name'] = $_POST['name'];
-            // !isset($_POST['username']) ? : = $d['username'] = $_POST['username'];
-            // !isset($_POST['email']) ? : = $d['email'] = $_POST['email'];
-            // !isset($_POST['pass']) ? : = $d['pass'] = $_POST['pass'];
-            // !isset($_POST['hash']) ? : = $d['hash'] = $_POST['hash'];
+            if(isset($_POST['name']) && $_POST['name'] != "") {
+                $d['name'] = $_POST['name'];
+            } if(isset($_POST['username']) && $_POST['username'] != "") {
+                $d['username'] = $_POST['username'];
+            } if(isset($_POST['email']) && $_POST['email'] != "") {
+                $d['email'] = $_POST['email'];
+            } if(isset($_POST['pass']) && $_POST['pass'] != "") {
+                $d['pass'] = $_POST['pass'];
+            } if(isset($_POST['bio'])) {
+                $d['bio'] = $_POST['bio'];
+            } if(isset($_POST['sexo']) && $_POST['sexo'] != "") {
+                $d['sexo'] = $_POST['sexo'];
+            }
 
-            // $d['hash']        = $this->hashGenerator($_POST['email']);
+            $id = $this->session->userdata('id');
 
-            // $this->db->update('Usuario', $data);
+            $this->db->where('id', $id);
+
+            $this->db->update('Usuario', $d);
+            $this->updateSession($id);
         }
 
         public function login()
@@ -33,7 +46,8 @@ class Usuario_model extends CI_Model {
             $query = $this->db->get('Usuario');
 
             if($query !== FALSE && $query->num_rows() > 0){
-                 return $query->row();
+                $this->updateSession($query->row()->id);
+                return $query->row();
             }
         }
 
@@ -60,7 +74,6 @@ class Usuario_model extends CI_Model {
                 'last_picture'  => $user->last_picture,
                 'last_bg'       => $user->last_bg
             ));
-
         }
 
         public function hashGenerator($string)
@@ -92,7 +105,7 @@ class Usuario_model extends CI_Model {
                 }
         }
 
-        public function updateLiveLocationUser($lat = NULL, $log = NULL, $city = NULL)
+        public function updateLiveLocationUser($lat = NULL, $log = NULL, $city = NULL, $id=NULL)
         {
             if($lat && $log){
                 $this->db->set('last_lat', $lat);
@@ -101,7 +114,7 @@ class Usuario_model extends CI_Model {
                 $this->db->where('id', $this->session->userdata('id'));
 
                 $this->db->update('Usuario');
-                // imprimir($this->db->last_query(),1);
+                $this->updateSession($id);
             }
         }
 

@@ -15,6 +15,9 @@
 
 
         <div class="col-lg-8 col-lg-offset-0 col-md-6 col-md-offset-0 phone-holder">
+            <div role="alert" class="alert alert-danger beautiful" style="width:100%">
+                Seu e-mail ainda não está ativo, <a class="bph" href="#"><b>clique aqui</b></a> para re-enviar o link de ativação.
+            </div>
             <ul class="ca bqe bqf agk">
                 
             <!-- POST NEW WAVE -->
@@ -53,8 +56,10 @@
                 </li>
 
 
-                <? foreach ($posts as $post) { ?>
+                <? if($posts){foreach ($posts as $post) { ?>
                 <? constroy_post($post) ?>
+                <? }} else { ?>
+                <? constroy_situation_main("Que pena :(", "Siga alguém para ver o que esta pessoa está publicando.") ?>
                 <? } ?>
                 
             </ul>

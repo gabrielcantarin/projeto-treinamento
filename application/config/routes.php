@@ -19,6 +19,7 @@ $route['logout'] = 'Usuario/logout';
 $route['timeline'] = 'Post/index';
 $route['timeline/(:any)'] = 'Post/index/$1';
 $route['post/(:any)'] = 'Post/getPost/$1';
+$route['wave/(:any)'] = 'Post/wave/$1';
 
 $route['follow/(:any)'] = 'Follow/followUser/$1';
 $route['unfollow/(:any)'] = 'Follow/unfollowUser/$1';

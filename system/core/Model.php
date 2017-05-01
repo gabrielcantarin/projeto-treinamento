@@ -63,6 +63,7 @@ class CI_Model {
 		$this->load->model('Usuario_model');
 		$this->load->model('Follow_model');
 
+
 		$user = $this->Usuario_model->getUserById($user_id);
 		$following = $this->Follow_model->following($user_id);
 		$followed = $this->Follow_model->followed($user_id);
@@ -72,6 +73,7 @@ class CI_Model {
                 'name'          => $user->name,
                 'username'      => $user->username,
                 'email'         => $user->email,
+                'sexo'          => $user->sexo,
                 'valid'         => $user->valid,
                 'hash'          => $user->hash,
                 'last_lat'      => $user->last_lat,
