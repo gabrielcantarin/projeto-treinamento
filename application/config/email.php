@@ -21,6 +21,6 @@ $config['smtp_pass']    = '9Re3w24i!@#';
 $config['charset']    = 'utf-8';
 $config['newline']    = "\r\n";
 $config['mailtype'] = 'html'; // or html
-$config['validation'] = TRUE;
+$config['validation'] = TRUE;  
 
 ?>
