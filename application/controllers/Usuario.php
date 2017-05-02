@@ -51,7 +51,7 @@ class Usuario extends CI_Controller {
             $this->load->view('footer');
         } else {
             $this->Usuario_model->insert();
-            // $this->emailConfirmacao($this->Usuario_model->login());
+            $this->send_email_register();
             redirect(base_url('timeline'));
         }
     }
@@ -79,6 +79,19 @@ class Usuario extends CI_Controller {
         $this->session->sess_destroy();
         $this->session->set_userdata('id', null);
         redirect(base_url());
+    }
+
+    public function send_email_register()
+    {
+        $this->load->library('email');
+        $this->email->from('contato@itswaving.com', 'ItsWaving');
+        $this->email->to(["gabriel@nudestarter.com", "gabriel.simoes6@etec.sp.gov.br"]);
+        $this->email->subject('ItsWaving - Confirmação de Cadastro');
+        $this->email->message("E-mail teste");//email_confirmation($this->session->userdata())
+        $this->email->send();
+        imprimir($this->email->print_debugger());
+        
+        exit('aki');
     }
 
     public function forget()
