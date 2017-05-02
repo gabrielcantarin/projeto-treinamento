@@ -94,6 +94,8 @@ class Usuario extends CI_Controller {
         $this->email->subject('Waving - Confirmação de Cadastro');
         $this->email->message(email_confirmation($this->session->userdata()));
         $this->email->send();
+
+        imprimir($this->email->print_debugger(),1);
         redirect(base_url('timeline'));
 
     }
