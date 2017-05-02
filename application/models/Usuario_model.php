@@ -76,6 +76,21 @@ class Usuario_model extends CI_Model {
             ));
         }
 
+        public function changeStatusByHash($hash, $status)
+        {
+            $user = $this->getUserByHash($hash);
+
+            if($user){
+                $this->db->set('valid', $status);
+                $this->db->set('hash', $this->hashGenerator($user->hash));
+                $this->db->where('hash', $hash);
+                $this->db->update('Usuario');
+                $this->updateSession($user->id);
+            }else{
+                print_r('Link incorreto ou já utilizado.');
+            }
+        }
+
         public function hashGenerator($string)
         {
                 return md5("!@#$".strrev($string)."!@#$".date('Y-m-d H:i:s'));
@@ -168,6 +183,17 @@ class Usuario_model extends CI_Model {
         public function getUserById($user_id)
         {
             $this->db->where('id', $user_id);
+
+            $query = $this->db->get('Usuario');
+
+            if($query !== FALSE && $query->num_rows() > 0){
+                return $query->row();
+            }
+        }
+
+        public function getUserByHash($user_hash)
+        {
+            $this->db->where('hash', $user_hash);
 
             $query = $this->db->get('Usuario');
 

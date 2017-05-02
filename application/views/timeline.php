@@ -15,9 +15,11 @@
 
 
         <div class="col-lg-8 col-lg-offset-0 col-md-6 col-md-offset-0 phone-holder">
+            <? if($this->session->userdata('valid') == USUARIO_NAO_CONFIRMADO) { ?>
             <div role="alert" class="alert alert-danger beautiful" style="width:100%">
-                Seu e-mail ainda não está ativo, <a class="bph" href="#"><b>clique aqui</b></a> para re-enviar o link de ativação.
+                Seu e-mail ainda não está ativo, <a class="bph" href="<?= base_url('Usuario/send_email_register');?>"><b>clique aqui</b></a> para re-enviar o link de ativação.
             </div>
+            <? } ?>
             <ul class="ca bqe bqf agk">
                 
             <!-- POST NEW WAVE -->

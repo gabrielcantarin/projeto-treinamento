@@ -1,11 +1,16 @@
 <?php 
 
 function email_confirmation($user) {
-	imprimir($user);
+
+
+	$link = base_url('confirmation/'.$user['hash']);
+
 	$s = "";
-	$s .= "<h1>Seja bem vindo ao Waving!</h1>";
-	$s .= "<p>Obrigado por se cadastrar, Clique aqui para confirmar seu cadastro!</p>";
-	$s .= "<p>Caso o link não esteja funcionando copie o link abaixo e cole em seu brownser.</p>";
+	$s .= "<h3>Obrigado por se cadastrar no Waving!</h3>";
+	$s .= "<p>Para confirmar seu cadastro <a href='".$link."'>clique aqui</a>!</p>";
+	$s .= "<p>Caso o link não esteja funcionando copie o link abaixo e cole em seu browser.</p>";
+	$s .= "<p><a href='".$link."'>".$link."</a></p>";
+	$s .= "<p>--</br>Gabriel Cantarin </br> CEO @ItsWaving</p>";
 
 	return $s;
 }

@@ -90,3 +90,6 @@ defined('USUARIO_NAO_CONFIRMADO')      OR define('USUARIO_NAO_CONFIRMADO', 0);
 defined('USUARIO_CONFIRMADO')      OR define('USUARIO_CONFIRMADO', 1);
 defined('USUARIO_BLOQUEADO')      OR define('USUARIO_BLOQUEADO', 2); 
 
+
+
+

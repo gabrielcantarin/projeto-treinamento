@@ -15,6 +15,7 @@ $route['login'] = 'Usuario/login';
 $route['register'] = 'Usuario/register';
 $route['forget'] = 'Usuario/forget';
 $route['logout'] = 'Usuario/logout';
+$route['confirmation/(:any)'] = 'Usuario/confirmation/$1';
 
 $route['timeline'] = 'Post/index';
 $route['timeline/(:any)'] = 'Post/index/$1';

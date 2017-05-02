@@ -52,8 +52,13 @@ class Usuario extends CI_Controller {
         } else {
             $this->Usuario_model->insert();
             $this->send_email_register();
-            redirect(base_url('timeline'));
         }
+    }
+
+    public function confirmation($hash)
+    {
+        $this->Usuario_model->changeStatusByHash($hash, USUARIO_CONFIRMADO);
+        redirect(base_url('timeline'));
     }
 
     public function login()
@@ -84,14 +89,13 @@ class Usuario extends CI_Controller {
     public function send_email_register()
     {
         $this->load->library('email');
-        $this->email->from('contato@itswaving.com', 'ItsWaving');
-        $this->email->to(["gabriel@nudestarter.com", "gabriel.simoes6@etec.sp.gov.br"]);
-        $this->email->subject('ItsWaving - Confirmação de Cadastro');
-        $this->email->message("E-mail teste");//email_confirmation($this->session->userdata())
+        $this->email->from('contato@itswaving.com', 'Waving');
+        $this->email->to($this->session->userdata('email'));
+        $this->email->subject('Waving - Confirmação de Cadastro');
+        $this->email->message(email_confirmation($this->session->userdata()));
         $this->email->send();
-        imprimir($this->email->print_debugger());
-        
-        exit('aki');
+        redirect(base_url('timeline'));
+
     }
 
     public function forget()
