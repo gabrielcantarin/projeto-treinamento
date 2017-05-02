@@ -1,5 +1,6 @@
 <?php 
 
+
 // $config['smtp_host'] = 'smtp.mandrillapp.com';
 // $config['smtp_port'] = 587;
 // $config['smtp_user'] = 'ti@gigatron.com.br';
