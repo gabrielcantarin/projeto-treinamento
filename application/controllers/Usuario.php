@@ -95,7 +95,7 @@ class Usuario extends CI_Controller {
         $this->email->message(email_confirmation($this->session->userdata()));
         $this->email->send();
 
-        imprimir($this->email->print_debugger(),1);
+        // imprimir($this->email->print_debugger(),1);
         redirect(base_url('timeline'));
 
     }
